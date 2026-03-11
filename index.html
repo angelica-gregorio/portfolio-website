@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angelica - Computer Engineer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+
+<body>
+
+    <!-- ══════════════════ NAVBAR ══════════════════ -->
+    <nav class="site-nav navbar navbar-expand-lg">
+        <div class="container">
+            <a class="nav-brand" href="#">Angelica<span class="dot-dev">.dev</span></a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-item-link nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-item-link nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-item-link nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-item-link nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════════ HERO ══════════════════ -->
+    <section class="hero-section" id="home">
+
+        <!-- Greeting badge -->
+        <div class="hero-greeting fade-up">
+            <div class="hello-badge-wrap">
+                <div class="hello-pill"><span>Hello!</span></div>
+                <svg class="hello-deco" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true">
+                    <path d="M10 30 C16 20 26 12 30 4" stroke="#ff383c" stroke-width="2" stroke-linecap="round" />
+                    <path d="M26 2 L30 4 L28 9" stroke="#ff383c" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="8" cy="20" r="1.5" fill="#ff383c" />
+                    <circle cx="32" cy="18" r="1.5" fill="#ff383c" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Hero heading (two lines, centered) -->
+        <h1 class="hero-heading fade-up" style="transition-delay:.07s">
+            <span class="span">I'm </span><span class="text-red">Angelica</span><span class="span">,</span><br>
+            <span class="span">Computer Engineer</span>
+        </h1>
+
+        <!-- Squiggle under "Computer" -->
+        <div class="hero-squiggle-wrap" aria-hidden="true">
+            <svg class="hero-squiggle" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 38 C16 16 40 8 64 4" stroke="#ff383c" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M10 42 C22 22 46 14 70 10" stroke="#ff383c" stroke-width="1.5" stroke-linecap="round"
+                    opacity="0.4" />
+            </svg>
+        </div>
+
+        <!-- Middle row: left quote | center photo | right degree -->
+        <div class="hero-mid">
+
+            <!-- LEFT: testimonial quote -->
+            <div class="hero-left fade-up" style="transition-delay:.12s">
+                <div class="quote-icon">&ldquo;&ldquo;</div>
+                <p class="quote-text">Jenny's Exceptional product design ensure our website's success. Highly
+                    Recommended</p>
+            </div>
+
+            <!-- CENTER: pink ellipse + photo + CTA bar -->
+            <div class="hero-center fade-up" style="transition-delay:.16s">
+                <div class="hero-ellipse"></div>
+
+                <!--
+        ════════════════════════════════════════════
+        ⚠️  REPLACE PLACEHOLDER WITH YOUR PHOTO:
+           
+        ════════════════════════════════════════════
+      -->
+                <div>
+                     <img class="hero-photo"
+                 src="angelica.png"
+                 alt="Angelica smiling">
+                </div>
+
+                <!-- CTA bar: Portfolio + Hire me -->
+                <nav class="hero-cta-bar" aria-label="Portfolio navigation">
+                    <a href="#projects" class="cta-pill-red">
+                        Portfolio
+                        <svg class="icon-outlined" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path d="M7 21 L21 7 M21 7 H12 M21 7 V16" stroke="white" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="cta-pill-ghost">Hire me</a>
+                </nav>
+            </div>
+
+            <!-- RIGHT: degree info -->
+            <div class="hero-right fade-up" style="transition-delay:.12s">
+                <div class="hero-degree">
+                    <div class="deg-title">BS Computer Engineering</div>
+                    <div class="deg-sub">Minor in Data Science</div>
+                </div>
+            </div>
+
+        </div><!-- /hero-mid -->
+
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════ FEATURED PROJECTS ══════════════════ -->
+    <section class="py-5" id="projects" style="background: var(--bg);">
+        <div class="container py-4">
+            <div class="text-center mb-5 fade-up">
+                <h2 class="section-label">Featured Projects</h2>
+                <p class="section-sub mt-2">Explore my latest work in embedded systems, AI/ML, and web development</p>
+            </div>
+            <div class="row g-4">
+
+                <div class="col-lg-4 col-md-6 fade-up" style="transition-delay:.05s">
+                    <div class="project-card">
+                        <div class="proj-thumb proj-1"><i class="bi bi-shield-lock-fill"></i></div>
+                        <div class="card-body-custom">
+                            <div class="card-title-custom">E-Mat Home Security System</div>
+                            <p class="card-text-custom">An intelligent home security solution using PIC16F877A
+                                microcontroller with motion detection and automated alert systems.</p>
+                            <div class="mb-2">
+                                <span class="tag">PIC16F877A</span><span class="tag">Embedded C</span><span
+                                    class="tag">IoT</span>
+                            </div>
+                            <a href="#" class="view-link">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 fade-up" style="transition-delay:.1s">
+                    <div class="project-card">
+                        <div class="proj-thumb proj-2"><i class="bi bi-soundwave"></i></div>
+                        <div class="card-body-custom">
+                            <div class="card-title-custom">Dysarthria Speech-to-Speech Interface</div>
+                            <p class="card-text-custom">AI-powered speech interface using machine learning to assist
+                                individuals with dysarthria in communication.</p>
+                            <div class="mb-2">
+                                <span class="tag blue">Python</span><span class="tag blue">TensorFlow</span><span
+                                    class="tag blue">NLP</span>
+                            </div>
+                            <a href="#" class="view-link">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 fade-up" style="transition-delay:.15s">
+                    <div class="project-card">
+                        <div class="proj-thumb proj-3"><i class="bi bi-calendar2-check-fill"></i></div>
+                        <div class="card-body-custom">
+                            <div class="card-title-custom">Dance Studio Enrollment System</div>
+                            <p class="card-text-custom">Full-stack web application for managing student enrollments,
+                                class schedules, and payments for dance studios.</p>
+                            <div class="mb-2">
+                                <span class="tag green">PHP</span><span class="tag green">MySQL</span><span
+                                    class="tag green">Bootstrap</span>
+                            </div>
+                            <a href="#" class="view-link">View Project <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════ ABOUT + SKILLS ══════════════════ -->
+    <section class="py-5 about-section" id="about">
+        <div class="container py-4">
+            <div class="row g-5">
+                <div class="col-lg-6 fade-up">
+                    <h2 class="about-title">About Me</h2>
+                    <div class="about-body">
+                        <p>I'm Angelica Gregorio, a passionate Computer Engineering and Data Science student with a deep
+                            interest in the intersection of hardware and software technologies.</p>
+                        <p>My journey in technology began with embedded systems, where I discovered the power of
+                            microcontrollers in creating intelligent solutions. This fascination led me to explore
+                            machine learning and data science, enabling me to build systems that not only function but
+                            also learn and adapt.</p>
+                        <p>Through my academic projects and personal initiatives, I've developed expertise in embedded
+                            systems programming, AI/ML applications, and full-stack web development. I'm particularly
+                            interested in projects that have real-world impact, especially in accessibility and smart
+                            home technologies.</p>
+                        <p>When I'm not coding, I enjoy exploring new technologies, contributing to open-source
+                            projects, and sharing knowledge with the tech community.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 fade-up" style="transition-delay:.1s" id="skills">
+                    <h2 class="skills-title">Skills</h2>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>Embedded Systems</span><span>90%</span></div>
+                        <div class="progress">
+                            <div class="progress-bar bar-blue" data-width="90" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>Web Development</span><span>85%</span></div>
+                        <div class="progress">
+                            <div class="progress-bar bar-red" data-width="85" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>Machine Learning</span><span>80%</span></div>
+                        <div class="progress">
+                            <div class="progress-bar bar-purple" data-width="80" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span>Data Visualization</span><span>75%</span></div>
+                        <div class="progress">
+                            <div class="progress-bar bar-teal" data-width="75" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════════ CONTACT ══════════════════ -->
+    <section class="py-5 contact-section" id="contact">
+        <div class="container py-4">
+            <div class="text-center mb-5 fade-up">
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="section-sub mt-2">Have a project in mind or want to collaborate? Let's connect!</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 fade-up" style="transition-delay:.1s">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Your name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="your.email@example.com">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button class="btn btn-send">Send Message &nbsp;<i class="bi bi-send-fill"></i></button>
+                    <div class="text-center mt-5">
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-link" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">© 2024 Angelica Gregorio. All rights reserved.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll-triggered fade-in
+        const fadeEls = document.querySelectorAll('.fade-up');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        fadeEls.forEach(el => io.observe(el));
+        setTimeout(() => {
+            fadeEls.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible'); });
+        }, 80);
+
+        // Animate skill bars on scroll
+        const bars = document.querySelectorAll('.progress-bar[data-width]');
+        const bo = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.dataset.width + '%'; bo.unobserve(e.target); } });
+        }, { threshold: 0.3 });
+        bars.forEach(b => bo.observe(b));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+    </script>
+</body>
+
+</html>
