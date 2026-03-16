@@ -173,8 +173,8 @@ const EDUCATION = [
     {
         school: "Daniel Fajardo Elementary School",
         deg: "Elementary",
-        logo: "resources\\images\\school-logo\\dfes-logo.jpg",
-        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources\\images\\dfes-background.jpg')",
+        logo: "resources/images/school-logo/dfes-logo.jpg",
+        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/dfes-background.jpg')",
         photoIco: "bi-star-fill",
         accent: "#c09010",
         full: false,
@@ -215,8 +215,10 @@ const STAGS = [
 ];
 
 /* ═══════════════════════════════════════════════════════════════
-   PROJECTS CAROUSEL  — Bootstrap carousel, liquid glass cards
+   OPTIMIZED LOGIC — Replaces everything below your STAGS array
 ═══════════════════════════════════════════════════════════════ */
+
+// PROJECTS CAROUSEL 
 const ACCS = [
     { line: "linear-gradient(90deg,#d82f2f,#ff8c42)", glow: "rgba(216,47,47,.35)" },
     { line: "linear-gradient(90deg,#4060e0,#9b6bff)", glow: "rgba(64,96,224,.35)" },
@@ -236,13 +238,12 @@ function cardHTML(p, i) {
 
     const thumb = p.img
         ? `<div class="proj-thumb">
-         <img src="${p.img}" alt="${p.title} project screenshot" class="proj-thumb-img">
-         <div class="proj-thumb-overlay" style="background:${p.grad}"></div>
-       </div>`
+             <img src="${p.img}" alt="${p.title} project screenshot" class="proj-thumb-img" loading="lazy">
+             <div class="proj-thumb-overlay" style="background:${p.grad}"></div>
+           </div>`
         : `<div class="proj-thumb" style="background:${p.grad}">
-         <i class="bi ${p.icon}" aria-hidden="true"
-            style="color:rgba(255,255,255,.85);filter:drop-shadow(0 2px 8px ${a.glow})"></i>
-       </div>`;
+             <i class="bi ${p.icon}" aria-hidden="true" style="color:rgba(255,255,255,.85);filter:drop-shadow(0 2px 8px ${a.glow})"></i>
+           </div>`;
 
     return `
     <div class="proj-card">
@@ -254,9 +255,7 @@ function cardHTML(p, i) {
         <div class="proj-tags">${tags}</div>
         <div class="proj-foot">
           <span class="proj-award">${p.award}</span>
-          <a href="${p.link}" class="proj-arrow"
-             style="background:${a.glow.replace('.35', '.9')}"
-             aria-label="View ${p.title} project">
+          <a href="${p.link}" class="proj-arrow" style="background:${a.glow.replace('.35', '.9')}" aria-label="View ${p.title} project">
             <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
           </a>
         </div>
@@ -268,8 +267,10 @@ function buildCarousel() {
     const inner = document.getElementById('projInner');
     const dots = document.getElementById('projDots');
     if (!inner || !dots) return;
-    inner.innerHTML = '';
-    dots.innerHTML = '';
+
+    // Use DocumentFragments to prevent DOM reflows
+    const innerFrag = document.createDocumentFragment();
+    const dotsFrag = document.createDocumentFragment();
 
     const n = PPS();
     const pages = Math.ceil(PROJECTS.length / n);
@@ -277,7 +278,6 @@ function buildCarousel() {
     for (let s = 0; s < pages; s++) {
         const item = document.createElement('div');
         item.className = 'carousel-item' + (s === 0 ? ' active' : '');
-
         const row = document.createElement('div');
         row.className = 'proj-slide';
 
@@ -288,7 +288,7 @@ function buildCarousel() {
             wrap.innerHTML = cardHTML(p, s * n + li);
             row.appendChild(wrap);
         });
-        // pad last slide
+
         for (let pad = chunk.length; pad < n; pad++) {
             const empty = document.createElement('div');
             empty.style.cssText = 'flex:1;min-width:0';
@@ -296,16 +296,20 @@ function buildCarousel() {
         }
 
         item.appendChild(row);
-        inner.appendChild(item);
+        innerFrag.appendChild(item);
 
         const dot = document.createElement('button');
         dot.className = 'proj-dot' + (s === 0 ? ' active' : '');
         dot.setAttribute('aria-label', `Slide ${s + 1}`);
-        dot.onclick = () => bootstrap.Carousel.getOrCreateInstance(
-            document.getElementById('projCarousel')
-        ).to(s);
-        dots.appendChild(dot);
+        dot.onclick = () => bootstrap.Carousel.getOrCreateInstance(document.getElementById('projCarousel')).to(s);
+        dotsFrag.appendChild(dot);
     }
+    
+    // Clear and append once
+    inner.innerHTML = '';
+    dots.innerHTML = '';
+    inner.appendChild(innerFrag);
+    dots.appendChild(dotsFrag);
 }
 
 buildCarousel();
@@ -316,16 +320,13 @@ window.addEventListener('resize', () => { clearTimeout(_rt); _rt = setTimeout(bu
 document.getElementById('projCarousel')?.addEventListener('slid.bs.carousel', e => {
     document.querySelectorAll('.proj-dot').forEach((d, i) => d.classList.toggle('active', i === e.to));
 });
-document.getElementById('projPrev')?.addEventListener('click', () =>
-    bootstrap.Carousel.getOrCreateInstance(document.getElementById('projCarousel')).prev());
-document.getElementById('projNext')?.addEventListener('click', () =>
-    bootstrap.Carousel.getOrCreateInstance(document.getElementById('projCarousel')).next());
+document.getElementById('projPrev')?.addEventListener('click', () => bootstrap.Carousel.getOrCreateInstance(document.getElementById('projCarousel')).prev());
+document.getElementById('projNext')?.addEventListener('click', () => bootstrap.Carousel.getOrCreateInstance(document.getElementById('projCarousel')).next());
 
-/* ═══════════════════════════════════════════════════════════════
-   EXPERIENCE TIMELINE
-═══════════════════════════════════════════════════════════════ */
+/* EXPERIENCE TIMELINE */
 const tlG = document.getElementById('tlGrid');
 if (tlG) {
+    const tlFrag = document.createDocumentFragment();
     EXPERIENCE.forEach((e, i) => {
         const isL = i % 2 === 0;
         const co = `<div class="tl-co">${e.co}</div><div class="tl-dt">${e.dt}</div>`;
@@ -333,62 +334,52 @@ if (tlG) {
         const row = document.createElement('div');
         row.className = 'tl-row fu';
         row.style.transitionDelay = `${i * .07}s`;
-        row.innerHTML = `
-      <div class="tl-l">${isL ? co : ro}</div>
-      <div class="tl-c"><div class="tl-dot ${e.dot}" role="presentation"></div></div>
-      <div class="tl-r">${isL ? ro : co}</div>`;
-        tlG.appendChild(row);
+        row.innerHTML = `<div class="tl-l">${isL ? co : ro}</div><div class="tl-c"><div class="tl-dot ${e.dot}" role="presentation"></div></div><div class="tl-r">${isL ? ro : co}</div>`;
+        tlFrag.appendChild(row);
     });
+    tlG.appendChild(tlFrag);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   EDUCATION CARDS  — liquid glass + school logos
-═══════════════════════════════════════════════════════════════ */
+/* EDUCATION CARDS */
 const eduG = document.getElementById('eduGrid');
 if (eduG) {
+    const eduFrag = document.createDocumentFragment();
     EDUCATION.forEach((e, i) => {
         const col = document.createElement('div');
         col.className = (e.full ? 'col-12' : 'col-sm-6 col-lg-4') + ' fu';
         col.style.transitionDelay = `${i * .08}s`;
-
-        // Logo element — img if path given, else icon placeholder
         const logoEl = e.logo
-            ? `<img src="${e.logo}" alt="${e.school} logo" class="edu-banner-logo">`
-            : `<div class="edu-banner-logo-placeholder" style="background:${e.photoBg}">
-           <i class="bi ${e.photoIco}" aria-hidden="true" style="color:rgba(255,255,255,.8);font-size:1.6rem"></i>
-         </div>`;
-
+            ? `<img src="${e.logo}" alt="${e.school} logo" class="edu-banner-logo" loading="lazy">`
+            : `<div class="edu-banner-logo-placeholder" style="background:${e.photoBg}"><i class="bi ${e.photoIco}" aria-hidden="true" style="color:rgba(255,255,255,.8);font-size:1.6rem"></i></div>`;
         const badges = e.badges.map(b => `<span class="edu-badge ${b.s}">${b.l}</span>`).join('');
+        col.innerHTML = `<div class="edu-card"><div class="edu-banner" style="background:${e.photoBg}">${logoEl}<div class="edu-banner-name" style="position:relative;z-index:1">${e.school}</div></div><div class="edu-accent" style="background:${e.accent}"></div><div class="edu-body"><div class="edu-deg">${e.deg}</div><div class="mt-2">${badges}</div></div></div>`;
+        eduFrag.appendChild(col);
+    });
+    eduG.appendChild(eduFrag);
+}
+/* INTERSECTION OBSERVERS */
+document.body.classList.add('js-ready');
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 
-        col.innerHTML = `
-      <div class="edu-card">
-        <div class="edu-banner" style="background:${e.photoBg}">
-          ${logoEl}
-          <div class="edu-banner-name" style="position:relative;z-index:1">${e.school}</div>
-        </div>
-        <div class="edu-accent" style="background:${e.accent}"></div>
-        <div class="edu-body">
-          <div class="edu-deg">${e.deg}</div>
-          <div class="mt-2">${badges}</div>
-        </div>
-      </div>`;
-        eduG.appendChild(col);
+function observeAll() {
+    // Optimization: Removed synchronous layout check (getBoundingClientRect)
+    document.querySelectorAll('.fu:not([data-o])').forEach(el => {
+        el.dataset.o = '1';
+        io.observe(el);
     });
 }
-
-/* ═══════════════════════════════════════════════════════════════
-   GALLERY + LIGHTBOX
-═══════════════════════════════════════════════════════════════ */
-const CAT_LABELS = {
-    all: "All", competitions: "Competitions",
-    awards: "Awards", volunteerism: "Volunteerism", orgs: "Organizations"
-};
-
+observeAll();
+/* GALLERY + LIGHTBOX */
+const CAT_LABELS = { all: "All", competitions: "Competitions", awards: "Awards", volunteerism: "Volunteerism", orgs: "Organizations" };
 let activeF = 'all', filtItems = [], lbIdx = 0;
 
-// Build filter pills
 const filtersEl = document.getElementById('galFilters');
 if (filtersEl) {
+    const filterFrag = document.createDocumentFragment();
     Object.entries(CAT_LABELS).forEach(([c, l]) => {
         const li = document.createElement('li');
         li.className = 'nav-item';
@@ -398,39 +389,28 @@ if (filtersEl) {
         btn.dataset.c = c;
         btn.onclick = () => {
             activeF = c;
-            document.querySelectorAll('#galFilters .nav-link')
-                .forEach(b => b.classList.toggle('active', b.dataset.c === c));
+            document.querySelectorAll('#galFilters .nav-link').forEach(b => b.classList.toggle('active', b.dataset.c === c));
             renderGal();
         };
         li.appendChild(btn);
-        filtersEl.appendChild(li);
+        filterFrag.appendChild(li);
     });
+    filtersEl.appendChild(filterFrag);
 }
 
-// Replace SPAN_COL with proper Bootstrap grid classes
-const SPAN_COL = { 
-    tall: 'col-6 col-md-4', 
-    wide: 'col-12 col-md-8', 
-    sq: 'col-6 col-md-4' 
-};
-
-const SPAN_ASP = { 
-    tall: '3/4', 
-    wide: '16/9', 
-    sq: '1/1' 
-};
+const SPAN_COL = { tall: 'col-6 col-md-4', wide: 'col-12 col-md-8', sq: 'col-6 col-md-4' };
+const SPAN_ASP = { tall: '3/4', wide: '16/9', sq: '1/1' };
 
 function renderGal() {
     const g = document.getElementById('galGrid');
     if (!g) return;
-    g.innerHTML = '';
+    const galFrag = document.createDocumentFragment();
     filtItems = activeF === 'all' ? GALLERY : GALLERY.filter(x => x.cat === activeF);
 
     filtItems.forEach((item, idx) => {
         const col = document.createElement('div');
         col.className = (SPAN_COL[item.span] || 'col-6 col-md-4') + ' fu';
         col.style.transitionDelay = `${(idx % 6) * .05}s`;
-
         const inner = document.createElement('div');
         inner.className = 'gal-item';
         inner.style.cssText = `aspect-ratio:${SPAN_ASP[item.span] || '1/1'}`;
@@ -439,86 +419,43 @@ function renderGal() {
         inner.setAttribute('aria-label', `View photo: ${item.label}`);
 
         if (item.img) {
-            inner.innerHTML = `
-        <img src="${item.img}" alt="${item.label}" loading="lazy">
-        <div class="gal-overlay" aria-hidden="true">
-          <div class="gal-cat-label">${CAT_LABELS[item.cat]}</div>
-          <div class="gal-label">${item.label}</div>
-        </div>`;
+            inner.innerHTML = `<img src="${item.img}" alt="${item.label}" loading="lazy"><div class="gal-overlay" aria-hidden="true"><div class="gal-cat-label">${CAT_LABELS[item.cat]}</div><div class="gal-label">${item.label}</div></div>`;
         } else {
-            inner.innerHTML = `
-        <div class="gal-placeholder" style="background:${item.pBg};width:100%;height:100%">
-          <i class="bi ${item.pIco}" aria-hidden="true" style="color:${item.pCol}"></i>
-          <span>${item.label}</span>
-        </div>
-        <div class="gal-overlay" aria-hidden="true">
-          <div class="gal-cat-label">${CAT_LABELS[item.cat]}</div>
-          <div class="gal-label">${item.label}</div>
-        </div>`;
+            inner.innerHTML = `<div class="gal-placeholder" style="background:${item.pBg};width:100%;height:100%"><i class="bi ${item.pIco}" aria-hidden="true" style="color:${item.pCol}"></i><span>${item.label}</span></div><div class="gal-overlay" aria-hidden="true"><div class="gal-cat-label">${CAT_LABELS[item.cat]}</div><div class="gal-label">${item.label}</div></div>`;
         }
-
         inner.onclick = () => openLb(idx);
-        inner.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(idx); }
-        });
+        inner.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(idx); } });
         col.appendChild(inner);
-        g.appendChild(col);
+        galFrag.appendChild(col);
     });
-
-    observeAll(); // pick up newly created .fu elements
+    g.innerHTML = '';
+    g.appendChild(galFrag);
+    observeAll();
 }
-
 renderGal();
 
-// Lightbox
-function openLb(idx) {
-    lbIdx = idx;
-    renderLb();
-    document.getElementById('lb').classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
+/* Lightbox Functions */
+function openLb(idx) { lbIdx = idx; renderLb(); document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function renderLb() {
     const item = filtItems[lbIdx];
     const img = document.getElementById('lbImg');
     const prev = document.getElementById('lbPh');
     if (prev) prev.remove();
-
     if (item.img) {
-        img.src = item.img;
-        img.alt = item.label;
-        img.style.display = 'block';
+        img.src = item.img; img.alt = item.label; img.style.display = 'block';
     } else {
-        img.src = '';
-        img.style.display = 'none';
+        img.src = ''; img.style.display = 'none';
         const ph = document.createElement('div');
         ph.id = 'lbPh';
         ph.style.cssText = `width:100%;aspect-ratio:16/9;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:${item.pBg}`;
-        ph.innerHTML = `<i class="bi ${item.pIco}" aria-hidden="true" style="font-size:3.5rem;color:${item.pCol}"></i>
-      <span style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,.5);text-align:center;padding:0 20px">${item.label}</span>`;
+        ph.innerHTML = `<i class="bi ${item.pIco}" aria-hidden="true" style="font-size:3.5rem;color:${item.pCol}"></i><span style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(255,255,255,.5);text-align:center;padding:0 20px">${item.label}</span>`;
         img.insertAdjacentElement('afterend', ph);
     }
-
     document.getElementById('lbCat').textContent = CAT_LABELS[item.cat] || '';
     document.getElementById('lbTitle').textContent = item.label;
 }
-
-function lbGo(dir) {
-    const p = document.getElementById('lbPh');
-    if (p) p.remove();
-    lbIdx = (lbIdx + dir + filtItems.length) % filtItems.length;
-    renderLb();
-}
-
-function closeLb() {
-    document.getElementById('lb').classList.remove('open');
-    document.body.style.overflow = '';
-    const p = document.getElementById('lbPh');
-    if (p) p.remove();
-}
-
-function lbBg(e) { if (e.target === document.getElementById('lb')) closeLb(); }
-
+function lbGo(dir) { const p = document.getElementById('lbPh'); if (p) p.remove(); lbIdx = (lbIdx + dir + filtItems.length) % filtItems.length; renderLb(); }
+function closeLb() { document.getElementById('lb').classList.remove('open'); document.body.style.overflow = ''; const p = document.getElementById('lbPh'); if (p) p.remove(); }
 document.addEventListener('keydown', e => {
     if (!document.getElementById('lb').classList.contains('open')) return;
     if (e.key === 'Escape') closeLb();
@@ -526,100 +463,47 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') lbGo(1);
 });
 
-/* ═══════════════════════════════════════════════════════════════
-   SKILLS  — 6 bars with role=progressbar (a11y #9, #15)
-═══════════════════════════════════════════════════════════════ */
+/* SKILLS */
 const skEl = document.getElementById('skillsEl');
 if (skEl) {
+    let skHTML = '';
     SKILLS.forEach(s => {
-        skEl.insertAdjacentHTML('beforeend', `
-      <div class="mb-3">
-        <div class="skill-lbl">
-          <span>${s.l}</span>
-          <span>${s.p}%</span>
-        </div>
-        <div class="progress"
-             role="progressbar"
-             aria-label="${s.l}"
-             aria-valuenow="${s.p}"
-             aria-valuemin="0"
-             aria-valuemax="100">
-          <div class="skill-bar"
-               data-w="${s.p}"
-               style="width:0%;height:8px;display:block;background:${s.b};border-radius:100px;">
-          </div>
-        </div>
-      </div>`);
+        skHTML += `<div class="mb-3"><div class="skill-lbl"><span>${s.l}</span><span>${s.p}%</span></div><div class="progress" role="progressbar" aria-label="${s.l}" aria-valuenow="${s.p}" aria-valuemin="0" aria-valuemax="100"><div class="skill-bar" data-w="${s.p}" style="width:0%;height:8px;display:block;background:${s.b};border-radius:100px;"></div></div></div>`;
     });
+    skEl.innerHTML = skHTML;
 }
 
 const tgEl = document.getElementById('tagsEl');
 if (tgEl) {
+    const tgFrag = document.createDocumentFragment();
     STAGS.forEach(t => {
         const s = document.createElement('span');
         s.className = 'sk-tag';
         s.style.cssText = `color:${t.c};background:${t.bg}`;
         s.textContent = t.l;
-        tgEl.appendChild(s);
+        tgFrag.appendChild(s);
     });
+    tgEl.appendChild(tgFrag);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   INTERSECTION OBSERVER  — fade-up + skill bars
-═══════════════════════════════════════════════════════════════ */
-document.body.classList.add('js-ready');
 
-const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-
-function observeAll() {
-    document.querySelectorAll('.fu:not([data-o])').forEach(el => {
-        el.dataset.o = '1';
-        if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add('in');
-        } else {
-            io.observe(el);
-        }
-    });
-}
-observeAll();
-// Replace your existing setTimeout block at the bottom of app.js with this:
 
 setTimeout(() => {
-  const bObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        // Adding a tiny delay guarantees the transition plays smoothly
-        requestAnimationFrame(() => {
-          e.target.style.width = e.target.dataset.w + '%';
+    const bObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                requestAnimationFrame(() => { e.target.style.width = e.target.dataset.w + '%'; });
+                bObs.unobserve(e.target);
+            }
         });
-        bObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.skill-bar').forEach(b => bObs.observe(b));
+}, 150);
 
-  document.querySelectorAll('.skill-bar').forEach(b => {
-    // Instead of calculating bounds, just let the observer handle it natively
-    bObs.observe(b);
-  });
-}, 150); // Small initial delay to ensure DOM and styles are fully parsed
-
-/* ═══════════════════════════════════════════════════════════════
-   CV MODAL
-═══════════════════════════════════════════════════════════════ */
+/* CV MODAL & SMOOTH SCROLL */
 function openCv() { document.getElementById('cvOv').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeCv() { document.getElementById('cvOv').classList.remove('open'); document.body.style.overflow = ''; }
-function cvBg(e) { if (e.target === document.getElementById('cvOv')) closeCv(); }
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.getElementById('cvOv').classList.contains('open')) closeCv();
-});
-
-/* ═══════════════════════════════════════════════════════════════
-   SMOOTH SCROLL
-═══════════════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('cvOv').classList.contains('open')) closeCv(); });
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
         const t = document.querySelector(a.getAttribute('href'));
