@@ -187,22 +187,9 @@ const EDUCATION = [
 ];
 
 const GALLERY = [
-    { cat: "competitions", img: "images/gallery/robothon-champ.jpg", label: "Robothon Champion — ICpEP-NCR, Dec 2024", span: "tall", pBg: "#1a0a0a", pIco: "bi-trophy-fill", pCol: "#d82f2f" },
-    { cat: "competitions", img: "images/gallery/squeeeze.jpg", label: "1st Runner-Up — SQUEEEZE, UP Diliman, Feb 2025", span: "wide", pBg: "#0a0a1a", pIco: "bi-award-fill", pCol: "#4060e0" },
-    { cat: "competitions", img: "images/gallery/robothon2.jpg", label: "Robothon 1st Runner-Up — ICpEP-NCR, Feb 2025", span: "sq", pBg: "#1a1400", pIco: "bi-award-fill", pCol: "#c0a030" },
-    { cat: "competitions", img: "images/gallery/nasa-spaceapps.jpg", label: "NASA Space Apps Challenge — National Qualifier 2021", span: "wide", pBg: "#0a0a2a", pIco: "bi-rocket-takeoff-fill", pCol: "#6b9fff" },
-    { cat: "competitions", img: "images/gallery/galileo-hackathon.jpg", label: "Galileo Hackathon Philippines 2021", span: "sq", pBg: "#001a0a", pIco: "bi-globe2", pCol: "#6bff9b" },
-    { cat: "awards", img: "images/gallery/senate-gold-medal.jpg", label: "Philippine Senate Gold Medal, 2023", span: "wide", pBg: "#1a1400", pIco: "bi-patch-check-fill", pCol: "#ffc96b" },
-    { cat: "awards", img: "images/gallery/nspc2023.jpg", label: "1st Place — National Schools Press Conference 2023", span: "tall", pBg: "#0a1a0a", pIco: "bi-newspaper", pCol: "#6bff9b" },
-    { cat: "awards", img: "images/gallery/rspc2023.jpg", label: "1st Place — Regional Schools Press Conference 2023", span: "sq", pBg: "#1a000a", pIco: "bi-newspaper", pCol: "#ff6bdd" },
-    { cat: "awards", img: "images/gallery/researcher-year.jpg", label: "Researcher of the Year · Most Innovative, 2021", span: "wide", pBg: "#0a1a1a", pIco: "bi-lightbulb-fill", pCol: "#6bdfff" },
-    { cat: "volunteerism", img: "images/gallery/robotics-seminar.jpg", label: "Robotics Seminar Speaker — Cavite City Science HS", span: "sq", pBg: "#0a0a1a", pIco: "bi-person-video2", pCol: "#9b6bff" },
-    { cat: "volunteerism", img: "images/gallery/press-judge.jpg", label: "Press Conference Judge — Pasig City College, 2025", span: "wide", pBg: "#1a0a00", pIco: "bi-people-fill", pCol: "#ff9b6b" },
-    { cat: "volunteerism", img: "images/gallery/space-quiz.jpg", label: "Space Quiz 2025 — National Astronomy Week", span: "tall", pBg: "#00001a", pIco: "bi-stars", pCol: "#6bdfff" },
-    { cat: "volunteerism", img: "images/gallery/world-space-week.jpg", label: "World Space Week 2024 Project Head", span: "sq", pBg: "#0a001a", pIco: "bi-globe", pCol: "#9b6bff" },
-    { cat: "orgs", img: "images/gallery/access-dlsu.jpg", label: "ACCESS DLSU — President, 2025", span: "wide", pBg: "#001a0a", pIco: "bi-people-fill", pCol: "#6bff9b" },
-    { cat: "orgs", img: "images/gallery/sciencekonek.jpg", label: "ScienceKonek — Arduino Days 2025", span: "sq", pBg: "#1a0a00", pIco: "bi-cpu-fill", pCol: "#ffc96b" },
-    { cat: "orgs", img: "images/gallery/animo-labs.jpg", label: "Animo Labs Fab Labs — Resident Maker", span: "tall", pBg: "#0a1a14", pIco: "bi-tools", pCol: "#6bffdd" }
+    { cat: "competitions", img: "resources\\images\\gallery\\ROBOTHON2024.png", label: "Robothon Champion — ICpEP-NCR, Dec 2024", span: "sq", pBg: "#1a0a0a", pIco: "bi-trophy-fill", pCol: "#d82f2f" },
+    { cat: "competitions", img: "resources\\images\\gallery\\SQZ2024.png", label: "1st Runner-Up — SQUEEEZE, UP Diliman, Feb 2025", span: "sq", pBg: "#0a0a1a", pIco: "bi-award-fill", pCol: "#4060e0" },
+    { cat: "competitions", img: "resources\\images\\gallery\\ROBOTHON2025.png", label: "Robothon 1st Runner-Up — ICpEP-NCR, Feb 2025", span: "sq", pBg: "#1a1400", pIco: "bi-award-fill", pCol: "#c0a030" },
 ];
 
 const SKILLS = [
@@ -420,8 +407,18 @@ if (filtersEl) {
     });
 }
 
-const SPAN_COL = { tall: 'col-6 col-md-4 col-lg-3', wide: 'col-12 col-sm-6 col-md-4', sq: 'col-6 col-md-4 col-lg-3' };
-const SPAN_ASP = { tall: '3/4', wide: '4/3', sq: '1/1' };
+// Replace SPAN_COL with proper Bootstrap grid classes
+const SPAN_COL = { 
+    tall: 'col-6 col-md-4', 
+    wide: 'col-12 col-md-8', 
+    sq: 'col-6 col-md-4' 
+};
+
+const SPAN_ASP = { 
+    tall: '3/4', 
+    wide: '16/9', 
+    sq: '1/1' 
+};
 
 function renderGal() {
     const g = document.getElementById('galGrid');
@@ -549,7 +546,7 @@ if (skEl) {
              aria-valuemax="100">
           <div class="skill-bar"
                data-w="${s.p}"
-style="width:0%;height:8px;display:block;background:${s.b};border-radius:100px;...
+               style="width:0%;height:8px;display:block;background:${s.b};border-radius:100px;">
           </div>
         </div>
       </div>`);
