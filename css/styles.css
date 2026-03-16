@@ -189,7 +189,7 @@ body.js-ready .fu.in {
   min-height: calc(100svh - 66px);
   display: flex;
   flex-direction: column;
-  align-items: center;
+ /* align-items: center; */
   padding-bottom: 0;
 }
 /* Greeting badge */
@@ -1712,3 +1712,54 @@ footer {
     height: 250px;
   }
 }
+/* =========================================
+   1. MOBILE-FIRST BASE STYLES (Phones)
+========================================= */
+.hero-ellipse-large {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;          
+  aspect-ratio: 2 / 1; 
+  background: #eebbba; 
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0; 
+  height: auto; 
+  z-index: 0;
+  margin-bottom: -5px; 
+}
+
+.hero-photo-large {
+  position: relative;
+  z-index: 2;
+  /* THE FIX: Scales dynamically to fill the mobile screen perfectly */
+  width: clamp(280px, 88vw, 420px);        
+  height: auto;
+  display: block;
+  
+  /* THE FIX: Pulls the image up to close the dead space */
+  margin-top: -10px; 
+  margin-bottom: -93px; /* Tweak this if the bottom of the shirt isn't perfectly aligned */
+}
+
+/* =========================================
+   2. DESKTOP OVERRIDES (768px and wider)
+========================================= */
+@media (min-width: 768px) {
+  
+  .hero-ellipse-large {
+    width: clamp(320px, 48vw, 680px); 
+    height: auto; /* Removes the mobile fixed height */
+    aspect-ratio: 2 / 1; /* Forces the perfect half-circle */
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0; 
+    margin-bottom: -30px; /* YOUR DESKTOP TWEAK */
+  }
+
+  .hero-photo-large {
+    width: clamp(300px, 42vw, 600px); 
+    margin-top: 40px; 
+    margin-bottom: -120px; /* YOUR DESKTOP TWEAK */
+  }
+  
+}
+

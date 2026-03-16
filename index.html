@@ -34,8 +34,6 @@
 
 <body>
 
-    <!-- Skip link (accessibility) -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- ═══════════════════════════════════════════
      NAVBAR
@@ -71,8 +69,7 @@
      ① HERO
 ═══════════════════════════════════════════ -->
         <section class="hero-section" id="home" aria-label="Introduction">
-            <div class="container">
-
+<div class="container d-flex flex-column flex-grow-1">
                 <!-- Greeting badge -->
                 <div class="text-center mb-3 fu">
                     <div class="hello-pill d-inline-flex position-relative">
@@ -104,21 +101,19 @@
                 </div>
 
                 <!-- Three-column mid: quote | photo | degree -->
-                <div class="row align-items-end justify-content-center g-3 mt-1">
-
-                    <!-- Left: quote — hidden on xs, visible md+ -->
+<div class="row align-items-center justify-content-center w-100 mt-1 mt-md-4 position-relative" style="max-width: 1400px; margin: 0 auto;">                    <!-- Left: quote — hidden on xs, visible md+ -->
                     <div class="col-md-3 d-none d-md-flex flex-column justify-content-center pb-4 fu"
                         style="transition-delay:.1s">
-                        <div class="quote-icon">&ldquo;&ldquo;</div>
-                        <p class="quote-text">DOST-SEI Scholar. Dean's Lister. Robothon Champion. Brilliance and heart
-                            in everything she builds.</p>
+                        <div class="quote-icon">&ldquo;</div>
+                        <p class="quote-text">Bridging the gap between hardware and humanity. Passionate about embedded
+                            systems, rapid prototyping, and making science accessible to all.</p>
                     </div>
 
                     <!-- Centre: photo + CTA bar -->
                     <div class="col-10 col-sm-7 col-md-5 col-lg-4 fu" style="transition-delay:.14s">
                         <div class="hero-photo-wrap">
-                            <div class="hero-ellipse" aria-hidden="true"></div>
-                            <img class="hero-photo" src="resources/images/angelica.webp"
+                            <div class="hero-ellipse-large" aria-hidden="true"></div>
+                            <img class="hero-photo-large" src="resources/images/angelica.webp"
                                 alt="Angelica — Computer Engineer" fetchpriority="high" loading="eager">
                             <div class="d-flex justify-content-center mt-n2">
                                 <nav class="hero-cta-bar" aria-label="Hero actions">
@@ -357,39 +352,39 @@
                             <p class="contact-sub mt-2">Have a project in mind or want to collaborate? Let's connect.
                             </p>
                         </div>
-                        <div class="contact-form-card fu" style="transition-delay:.1s">
-                            <div class="mb-3">
-                                <label class="form-label" for="contactName">Name</label>
-                                <input id="contactName" type="text" class="form-control" placeholder="Your name"
-                                    aria-label="Your name">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="contactEmail">Email</label>
-                                <input id="contactEmail" type="email" class="form-control"
-                                    placeholder="your.email@example.com" aria-label="Your email address">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="contactMsg">Message</label>
-                                <textarea id="contactMsg" class="form-control"
-                                    placeholder="Tell me about your project..." aria-label="Your message"></textarea>
-                            </div>
-                            <button class="btn-send" type="button" aria-label="Send message">
-                                Send Message &nbsp;<i class="bi bi-send-fill" aria-hidden="true"></i>
-                            </button>
-                            <div class="text-center mt-4">
-                                <a href="https://www.linkedin.com/in/angelica-gregorio/" class="s-link"
-                                    aria-label="LinkedIn profile">
-                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
-                                </a>
-                                <a href="https://github.com/angelica-gregorio" class="s-link"
-                                    aria-label="GitHub profile">
-                                    <i class="bi bi-github" aria-hidden="true"></i>
-                                </a>
-                                <a href="mailto:gregorioangelica653@gmail.com" class="s-link" aria-label="Send email">
-                                    <i class="bi bi-envelope-fill" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </div>
+                        <form action="https://formspree.io/f/xnjgggbz" method="POST" class="contact-form-card fu" style="transition-delay:.1s">
+    
+    <div class="mb-3">
+        <label class="form-label" for="contactName">Name</label>
+        <input id="contactName" name="name" type="text" class="form-control" placeholder="Your name" aria-label="Your name" required>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label" for="contactEmail">Email</label>
+        <input id="contactEmail" name="email" type="email" class="form-control" placeholder="your.email@example.com" aria-label="Your email address" required>
+    </div>
+    
+    <div class="mb-4">
+        <label class="form-label" for="contactMsg">Message</label>
+        <textarea id="contactMsg" name="message" class="form-control" placeholder="Tell me about your project..." aria-label="Your message" required></textarea>
+    </div>
+    
+    <button class="btn-send" type="submit" aria-label="Send message">
+        Send Message &nbsp;<i class="bi bi-send-fill" aria-hidden="true"></i>
+    </button>
+    
+    <div class="text-center mt-4">
+        <a href="https://www.linkedin.com/in/angelica-gregorio/" class="s-link" aria-label="LinkedIn profile">
+            <i class="bi bi-linkedin" aria-hidden="true"></i>
+        </a>
+        <a href="https://github.com/angelica-gregorio" class="s-link" aria-label="GitHub profile">
+            <i class="bi bi-github" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:gregorioangelica653@gmail.com" class="s-link" aria-label="Send email">
+            <i class="bi bi-envelope-fill" aria-hidden="true"></i>
+        </a>
+    </div>
+</form>
                     </div>
                 </div>
             </div>
