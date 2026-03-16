@@ -586,25 +586,26 @@ function observeAll() {
     });
 }
 observeAll();
+// Replace your existing setTimeout block at the bottom of app.js with this:
 
 setTimeout(() => {
   const bObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        e.target.style.width = e.target.dataset.w + '%';
+        // Adding a tiny delay guarantees the transition plays smoothly
+        requestAnimationFrame(() => {
+          e.target.style.width = e.target.dataset.w + '%';
+        });
         bObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.skill-bar').forEach(b => {
-    if (b.getBoundingClientRect().top < window.innerHeight) {
-      b.style.width = b.dataset.w + '%';
-    } else {
-      bObs.observe(b);
-    }
+    // Instead of calculating bounds, just let the observer handle it natively
+    bObs.observe(b);
   });
-}, 0);
+}, 150); // Small initial delay to ensure DOM and styles are fully parsed
 
 /* ═══════════════════════════════════════════════════════════════
    CV MODAL
