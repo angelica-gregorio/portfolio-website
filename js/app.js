@@ -129,7 +129,7 @@ const EDUCATION = [
         school: "De La Salle University – Manila",
         deg: "BS Computer Engineering, Minor in Data Science",
         logo: "resources\\images\\school-logo\\dlsu-logo.svg",          // ← replace with real path
-        photoBg: "linear-gradient(rgba(0, 77, 44, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/dlsu-background.jpg')",
+        photoBg: `linear-gradient(rgba(0, 77, 44, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/dlsu-background.webp')`,
         photoIco: "bi-building-fill",
         accent: "#005b35",
         full: true,
@@ -146,7 +146,7 @@ const EDUCATION = [
         school: "LPNHS – Senior High School",
         deg: "Senior High School — STEM Strand",
         logo: "resources\\images\\school-logo\\lpnhs-shs-logo.jfif",
-        photoBg: "linear-gradient(rgba(0, 77, 44, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/lpnhs-shs-background.jpg')",
+        photoBg: "linear-gradient(rgba(0, 77, 44, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/lpnhs-shs-background.webp')",
         photoIco: "bi-mortarboard-fill",
         accent: "#2060b0",
         full: false,
@@ -160,7 +160,7 @@ const EDUCATION = [
         school: "LPNHS – Junior High School",
         deg: "Junior High School — STEM Program",
         logo: "resources\\images\\school-logo\\lpnhs-jhs-logo.jpg",
-        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/lpnhs-jhs-background.jpg')",
+        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/lpnhs-jhs-background.webp')",
         photoIco: "bi-journal-bookmark-fill",
         accent: "#20a060",
         full: false,
@@ -174,7 +174,7 @@ const EDUCATION = [
         school: "Daniel Fajardo Elementary School",
         deg: "Elementary",
         logo: "resources/images/school-logo/dfes-logo.jpg",
-        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/dfes-background.jpg')",
+        photoBg: "linear-gradient(rgba(0, 91, 53, 0.8), rgba(0, 160, 96, 0.8)), url('resources/images/dfes-background.webp')",
         photoIco: "bi-star-fill",
         accent: "#c09010",
         full: false,
@@ -187,9 +187,9 @@ const EDUCATION = [
 ];
 
 const GALLERY = [
-    { cat: "competitions", img: "resources\\images\\gallery\\ROBOTHON2024.png", label: "Robothon Champion — ICpEP-NCR, Dec 2024", span: "sq", pBg: "#1a0a0a", pIco: "bi-trophy-fill", pCol: "#d82f2f" },
-    { cat: "competitions", img: "resources\\images\\gallery\\SQZ2024.png", label: "1st Runner-Up — SQUEEEZE, UP Diliman, Feb 2025", span: "sq", pBg: "#0a0a1a", pIco: "bi-award-fill", pCol: "#4060e0" },
-    { cat: "competitions", img: "resources\\images\\gallery\\ROBOTHON2025.png", label: "Robothon 1st Runner-Up — ICpEP-NCR, Feb 2025", span: "sq", pBg: "#1a1400", pIco: "bi-award-fill", pCol: "#c0a030" },
+    { cat: "competitions", img: "resources/images/gallery/ROBOTHON2024.webp", label: "Robothon Champion — ICpEP-NCR, Dec 2024", span: "sq", pBg: "#1a0a0a", pIco: "bi-trophy-fill", pCol: "#d82f2f" },
+    { cat: "competitions", img: "resources/images/gallery/SQZ2024.webp", label: "1st Runner-Up — SQUEEEZE, UP Diliman, Feb 2025", span: "sq", pBg: "#0a0a1a", pIco: "bi-award-fill", pCol: "#4060e0" },
+    { cat: "competitions", img: "resources/images/gallery/ROBOTHON2025.webp", label: "Robothon 1st Runner-Up — ICpEP-NCR, Feb 2025", span: "sq", pBg: "#1a1400", pIco: "bi-award-fill", pCol: "#c0a030" },
 ];
 
 const SKILLS = [
